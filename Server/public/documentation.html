@@ -9,5 +9,40 @@
    <h1>Documentation</h1>
    <br>
    <p>This is the documentation for the website, F/stop API. A Movie Directory API focussed on film pieces.</p>
+   <br>
+   <h3>Endpoints</h3>
+   <br>
+   <ul>
+    <li>
+      <p>'/': Returns a welcome message via GET</p>
+    </li>
+    <li>
+      <p>'/movies': Returns a list of all movies on F/stop's API via GET</p>
+    </li>
+    <li>
+      <p>'/movies/:movie': Returns data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the use via GET</p>
+    </li>
+    <li>
+      <p>'/movies/genre/:genreName': Returns data about a genre (description) by name/title (e.g., “Thriller”) via GET</p>
+    </li>
+    <li>
+      <p>'/movies/director/:directorName': Returns data about a director (bio, birth year, death year) by name via GET</p>
+    </li>
+    <li>
+      <p>'/users': Allows new users to register via POST</p>
+    </li>
+    <li>
+      <p>'/users/:id': Allows users to update their user info (username) via PUT</p>
+    </li>
+    <li>
+      <p>'/users/:id/favorites': Allows users to add a movie to their list of favorites via POST</p>
+    </li>
+    <li>
+      <p>'/users/:id/favorites/:movieTitle': Allow users to remove a movie from their list of favorites via DELETE</p>
+    </li>
+    <li>
+      <p>'/users/:id': Allows existing users to deregister via DELETE</p>
+    </li>
+   </ul> 
   </body>
 </html>

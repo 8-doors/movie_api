@@ -7,6 +7,8 @@ const app = express();
 
 app.use(morgan('common'))
 
+//READ
+
 app.get('/', (req, res) => {
   res.send('Welcome to F/stop!!!');
 });
@@ -44,6 +46,44 @@ app.get('/movies', (req, res) => {
      "Release Date":"February 17 2017"
     }
  });
+});
+
+app.get('/movies/:title', (req, res) => {
+  res.send('Returns data about a single movie by title');
+});
+
+app.get('/movies/genre/:genreName', (req, res) => {
+  res.send('Returns data about a single genre by title');
+});
+
+app.get('/movies/director/:directorName', (req, res) => {
+  res.send('Returns data about a single director by name');
+});
+
+//CREATE
+
+app.post('/users', (req, res) => {
+  res.send('Allows new users to register');
+});
+
+app.post('/users/:id/favorites', (req, res) => {
+  res.send('Allows users to add a movie to their favorites list');
+});
+
+//UPDATE
+
+app.put('/users/:id', (req, res) => {
+  res.send('Allows users to update their user info (username)');
+});
+
+//DELETE
+
+app.delete('/users/:id/favorites/:movieTitle', (req, res) => {
+  res.send('Allow users to remove a movie from their list of favorites');
+});
+
+app.delete('/users/:id', (req, res) => {
+  res.send('Allows existing users to deregister');
 });
 
 app.use(express.static('public'));
