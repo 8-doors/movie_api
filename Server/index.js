@@ -11,6 +11,8 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 const Users = Models.User;
 
+mongoose.connect('mongodb://localhost:27017/f_stop', { useNewUrlParser: true, useUnifiedTopology: true });
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
