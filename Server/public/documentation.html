@@ -17,34 +17,37 @@
       <p>'/': Returns a welcome message via GET</p>
     </li>
     <li>
-      <p>'/Movies': Returns a list of all movies on F/stop's API via GET</p>
+      <p>'/movies': Returns a list of all movies on F/stop's API via GET</p>
     </li>
     <li>
-      <p>'/Movies/:movieTitle': Returns data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the use via GET</p>
+      <p>'/movies/:Title': Returns data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the use via GET</p>
     </li>
     <li>
-      <p>'/Movies/Genre/:genreName': Returns data about a genre (description) by name/title (e.g., “Thriller”) via GET</p>
+      <p>'/genres/:Name': Returns data about a genre (description) by name/title (e.g., “Thriller”) via GET</p>
     </li>
     <li>
-      <p>'/Movies/Director/:directorName': Returns data about a director (bio, birth year, death year) by name via GET</p>
+      <p>'/movies/:Genre': Finds all movies of a given genre via GET</p>
     </li>
     <li>
-      <p>'/Directors/:directorName': Returns data about a directors work/movies they have done via GET</p>
+      <p>'/directors/:Name': Returns data about a director (bio, birth year, death year) by name via GET</p>
     </li>
     <li>
-      <p>'/Users': Allows new users to register via POST</p>
+      <p>'/movies/:Director': Returns data about a directors work/movies they have done via GET</p>
     </li>
     <li>
-      <p>'/Users/:_id': Allows users to update their user info (username) via PUT</p>
+      <p>'/users': Allows new users to register via POST</p>
     </li>
     <li>
-      <p>'/Users/:_id/Favorites': Allows users to add a movie to their list of favorites via POST</p>
+      <p>'/users/:Username': Allows users to update their user info (e.g. username) via PUT</p>
     </li>
     <li>
-      <p>'/Users/:_id/Favorites/:movieTitle': Allow users to remove a movie from their list of favorites via DELETE</p>
+      <p>'/users/:Username/movies/:MovieID': Allows users to add a movie to their list of favorites via POST</p>
     </li>
     <li>
-      <p>'/Users/:_id': Allows existing users to deregister via DELETE</p>
+      <p>'/users/:id/movies/:movieTitle': Allow users to remove a movie from their list of favorites via DELETE</p>
+    </li>
+    <li>
+      <p>'/users/:id': Allows existing users to deregister via DELETE</p>
     </li>
    </ul> 
   </body>
