@@ -11,13 +11,15 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/f_stop', { useNewUrlParser: true, useUnifiedTopology: true });
-
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan('common'))
+
+app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost:27017/f_stop', { useNewUrlParser: true, useUnifiedTopology: true });
 
 /*CREATE
   We’ll expect JSON in this format
@@ -31,7 +33,7 @@ app.use(morgan('common'))
 
   //Create New User
 app.post('/users', (req, res) => {
-  User.findOne({ Username: req.body.Username }).then((user) => {
+  Users.findOne({ Username: req.body.Username }).then((user) => {
     if (user) {
       return res.status(400).send(req.body.Username + ' already exists.');
     } else {
