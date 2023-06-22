@@ -80,7 +80,7 @@ app.get('/', (req, res) => {
   //Get all Movies
 
 app.get('/movies', (req, res) => {
-  Movies.find()
+  Movies.find({})
     .then((movies) => {
       res.status(201).json(movies);
     }).catch((err)=> {

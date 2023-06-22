@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 let movieSchema = mongoose.Schema({
+    _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Title: {type: String, required: true},
     Description: {type: String, required: true},
     Genre: {type: mongoose.Schema.Types.ObjectId, ref: 'Genre'},
@@ -9,11 +10,13 @@ let movieSchema = mongoose.Schema({
 });
 
 let genreSchema = mongoose.Schema({
+    _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Name: {type: String, required: true},
     Description: {type: String, required: true}
 });
 
 let directorSchema = mongoose.Schema({
+    _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Name: {type: String, required: true},
     Bio: {type: String, required: true},
     Birth: {type: String, required: true},
@@ -21,6 +24,7 @@ let directorSchema = mongoose.Schema({
 });
 
 let userShcema = mongoose.Schema({
+    _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Username: {type: String, required: true},
     Password: {type: String, required: true},
     Email: {type: String, required: true},
