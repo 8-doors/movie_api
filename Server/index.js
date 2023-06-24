@@ -6,10 +6,10 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 const bodyParser = require('body-parser');
 
-const Movies = Models.Movie;
-const Genres = Models.Genre;
-const Directors = Models.Director;
-const Users = Models.User;
+const Movies = Models.Movies;
+const Genres = Models.Genres;
+const Directors = Models.Directors;
+const Users = Models.Users;
 
 const app = express();
 

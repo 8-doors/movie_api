@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-let movieSchema = mongoose.Schema({
+let moviesSchema = mongoose.Schema({
     _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Title: {type: String, required: true},
     Description: {type: String, required: true},
@@ -9,13 +9,13 @@ let movieSchema = mongoose.Schema({
     ImagePath: String
 });
 
-let genreSchema = mongoose.Schema({
+let genresSchema = mongoose.Schema({
     _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Name: {type: String, required: true},
     Description: {type: String, required: true}
 });
 
-let directorSchema = mongoose.Schema({
+let directorsSchema = mongoose.Schema({
     _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Name: {type: String, required: true},
     Bio: {type: String, required: true},
@@ -23,7 +23,7 @@ let directorSchema = mongoose.Schema({
     Death: {type: String, required: true}
 });
 
-let userShcema = mongoose.Schema({
+let usersShcema = mongoose.Schema({
     _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Username: {type: String, required: true},
     Password: {type: String, required: true},
@@ -32,12 +32,12 @@ let userShcema = mongoose.Schema({
     Favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Movie'}]
 });
 
-let Movie = mongoose.model('Movies', movieSchema);
-let Genre = mongoose.model('Genres', genreSchema);
-let Director = mongoose.model('Directors', directorSchema);
-let User = mongoose.model('Users', userShcema);
+let Movies = mongoose.model('Movies', moviesSchema);
+let Genres = mongoose.model('Genres', genresSchema);
+let Directors = mongoose.model('Directors', directorsSchema);
+let Users = mongoose.model('Users', usersShcema);
 
-module.exports.Movie = Movie;
-module.exports.Genre = Genre;
-module.exports.Director = Director;
-module.exports.User = User;
+module.exports.Movies = Movies;
+module.exports.Genres = Genres;
+module.exports.Directors = Directors;
+module.exports.Users = Users;
