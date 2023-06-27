@@ -24,7 +24,6 @@ let directorsSchema = mongoose.Schema({
 });
 
 let usersShcema = mongoose.Schema({
-    _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Username: {type: String, required: true},
     Password: {type: String, required: true},
     Email: {type: String, required: true},
