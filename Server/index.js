@@ -13,6 +13,11 @@ const Users = Models.Users;
 
 const app = express();
 
+let auth = require('./auth.js')(app);
+
+const passport = require('passport');
+require('./passport');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan('common'))
@@ -58,7 +63,7 @@ app.post('/users', (req, res) => {
 
   //add a movie to a users Favorites
 
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
+app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, 
     { $push: { Favorites: req.params['MovieID'] }}, { new: true })
     .then((updatedUser) => {
@@ -130,7 +135,7 @@ app.get('/directors/:Name', (req, res) => {
 
   //update a users profile
 
-app.put('/users/:Username', (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set: 
     {
       Username: req.body.Username,
@@ -152,7 +157,7 @@ app.put('/users/:Username', (req, res) => {
 
   //Delete movie off of user favorites
 
-app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { 
     $pull: { Favorites: req.params['MovieID']  }
   }, 
@@ -167,7 +172,7 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
 
   //Delete User
 
-app.delete('/users/:Username', (req, res) => {
+app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
       if (!user) {
