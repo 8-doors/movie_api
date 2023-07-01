@@ -5,6 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const bodyParser = require('body-parser');
+const { check, validationResult} = require('express-validator');
 
 const Movies = Models.Movies;
 const Genres = Models.Genres;
@@ -12,6 +13,9 @@ const Directors = Models.Directors;
 const Users = Models.Users;
 
 const app = express();
+
+const cors = require('cors');
+app.use(cors());
 
 let auth = require('./auth.js')(app);
 
@@ -38,14 +42,28 @@ mongoose.connect('mongodb://127.0.0.1:27017/f_stop', { useNewUrlParser: true, us
 
   //Create New User
 
-app.post('/users', (req, res) => {
+app.post('/users', 
+[
+check('Username', 'Username is required.').isLength({min: 5}),
+check('Username', 'Username can only contain alphanumeric characters.').isAlphanumeric(),
+check('Password', 'Password is required.').isEmpty(),
+check('Email', 'Email is not Valid.').isEmail()
+],
+(req, res) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() })
+  };
+
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username }).then((user) => {
     if (user) {
       return res.status(400).send(req.body.Username + ' already exists.');
     } else {
       Users.create({
         Username: req.body.Username,
-        Password: req.body.Password,
+        Password: hashedPassword,
         Email: req.body.Email,
         Birthday: req.body.Birthday,
         Favorites: [req.body.Favorites]
@@ -135,7 +153,20 @@ app.get('/directors/:Name', (req, res) => {
 
   //update a users profile
 
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }), 
+[
+  check('Username', 'Username is required.').isLength({min: 5}),
+  check('Username', 'Username can only contain alphanumeric characters.').isAlphanumeric(),
+  check('Password', 'Password is required.').isEmpty(),
+  check('Email', 'Email is not Valid.').isEmail()
+  ],
+  (req, res) => {
+    let errors = validationResult(req);
+  
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() })
+    };
+
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set: 
     {
       Username: req.body.Username,

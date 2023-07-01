@@ -15,7 +15,10 @@ passport.use(new LocalStrategy({
     Users.findOne({ Username: username }).then((user) => {
         if (!user) {
             console.log('incorrect username');
-            return callback(null, false, {message: 'Incorrect Username or Password.'});
+            return callback(null, false, {message: 'Incorrect Username.'});
+        } if (!user.validatePassword(password)) {
+            console.log('incorrect password');
+            return callback(null, false, {message: 'Incorrect Password.'});
         } else {
             console.log('finished')
             return callback(null, user);
