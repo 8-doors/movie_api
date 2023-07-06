@@ -157,7 +157,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
 [
   check('Username', 'Username is required.').isLength({min: 5}),
   check('Username', 'Username can only contain alphanumeric characters.').isAlphanumeric(),
-  check('Password', 'Password is required.').isEmpty(),
+  check('Password', 'Password is required.').not().isEmpty(),
   check('Email', 'Email is not Valid.').isEmail()
   ],
   (req, res) => {
