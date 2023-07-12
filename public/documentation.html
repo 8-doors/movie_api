@@ -20,10 +20,22 @@
       <p>'/movies': Returns a list of all movies on F/stop's API via GET</p>
     </li>
     <li>
-      <p>'/movies/:Title': Returns data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the use via GET</p>
+      <p>'/movie/:Title': Returns data (description, genre, director, image URL, whether its featured or not) about a single movie by title to the use via GET</p>
+    </li>
+    <li>
+      <p>'/movie/:MovieID': Returns data (description, genre, director, image URL, whether its featured or not) about a single movie by its id to the use via GET</p>
+    </li>
+    <li>
+      <p>'/movies/:Genre': Returns a list of movies by Genre via GET</p>
+    </li>
+    <li>
+      <p>'/movies/:Director': Returns a list of movies by a Director via GET</p>
     </li>
     <li>
       <p>'/genres/:Name': Returns data about a genre (description) by name/title (e.g., “Thriller”) via GET</p>
+    </li>
+    <li>
+      <p>'/directors': Returns data about all directors (bio, birth year, death year) via GET</p>
     </li>
     <li>
       <p>'/directors/:Name': Returns data about a director (bio, birth year, death year) by name via GET</p>

@@ -5,8 +5,8 @@ let moviesSchema = mongoose.Schema({
     _id: {type: mongoose.Schema.Types.ObjectId, ref: 'Current Object'},
     Title: {type: String, required: true},
     Description: {type: String, required: true},
-    Genre: {type: mongoose.Schema.Types.ObjectId, ref: 'Genre'},
-    Director: {type: mongoose.Schema.Types.ObjectId, ref: 'Director'},
+    Genre: {type: String, required: true},
+    Director: {type: String, required: true}, 
     ImagePath: String
 });
 
@@ -21,7 +21,8 @@ let directorsSchema = mongoose.Schema({
     Name: {type: String, required: true},
     Bio: {type: String, required: true},
     Birth: {type: String, required: true},
-    Death: {type: String, required: true}
+    Death: {type: String, required: true},
+    ImagePath: String
 });
 
 let usersShcema = mongoose.Schema({

@@ -20,6 +20,7 @@ app.use(cors());
 let auth = require('./auth.js')(app);
 
 const passport = require('passport');
+const { isEmpty } = require('lodash');
 require('./passport');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +29,9 @@ app.use(morgan('common'))
 
 app.use(bodyParser.json());
 
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connect('mongodb://127.0.0.1:27017/f_stop', { useNewUrlParser: true, useUnifiedTopology: true });
 
 /*CREATE
   We’ll expect JSON in this format
@@ -110,14 +113,39 @@ app.get('/movies', (req, res) => {
     });
 });
 
-  //find a movie by its Title
+//find a movie by its Title or its ID
 
-app.get('/movies/:Title', (req, res) => {
-  Movies.findOne({ Title: req.params.Title })
-    .then((movie) => {
+app.get('/movie/:parameter', (req, res) => {
+  Movies.findOne({ Title: req.params['parameter'] })
+  .then((movie) => {
+    if (movie === null) {
+      Movies.findOne({ _id: req.params['parameter'] })
+      .then((movie1) => {
+        res.json(movie1);
+      })
+    } else {
       res.json(movie);
-    
-    }).catch((err)=> {
+    }
+  }).catch((err)=> {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+//find movies by their director
+
+app.get('/movies/:parameter', (req, res) => {
+  Movies.find({ Genre: req.params['parameter'] })
+  .then((movies) => {
+    if (movies == '') {
+      Movies.find({ Director: req.params['parameter'] })
+      .then((movies1) => {
+        res.json(movies1);
+      })
+    } else {
+      res.json(movies);
+    }
+  }).catch((err)=> {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
@@ -143,6 +171,18 @@ app.get('/directors/:Name', (req, res) => {
     .then((director) => {
       res.json(director);
     
+    }).catch((err)=> {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+ //Get all Directors
+
+ app.get('/directors', (req, res) => {
+  Directors.find({})
+    .then((directors) => {
+      res.status(201).json(directors);
     }).catch((err)=> {
       console.error(err);
       res.status(500).send('Error: ' + err);
@@ -223,7 +263,7 @@ app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something broke!');
+    res.status(500).send('Something broke!' + err);
   });
 
 
